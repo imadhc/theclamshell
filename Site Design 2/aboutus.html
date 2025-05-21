@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="img/logo 2.jpg" type="image/png">
+
+  <title>The Clamshell</title>
+
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="about-us-page">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+    <div class="container position-relative">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo_2-removebg-preview.png" alt="Logo" class="logo-img me-2">
+        <span class="logo-text">The Clamshell</span>
+      </a>
+  
+      <!-- Hamburger Icon -->
+      <button class="navbar-toggler text-warning border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Dropdown Menu -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+<!-- My Cart and Contact Us will be dynamically hidden based on user role -->
+<li class="nav-item d-none" id="myCartLink">
+  <a class="nav-link" href="#">My Cart</a>
+</li>
+
+<li class="nav-item d-none" id="contactUsLink">
+  <a class="nav-link" href="#">Contact Us</a>
+</li>
+
+<!-- Orders Page Link (Hidden by default, shown on admin login) -->
+<li class="nav-item d-none" id="ordersLink">
+  <a class="nav-link" href="orders.html">
+      Orders
+      <span class="badge bg-danger" id="orderBadge" style="display: none;"></span> <!-- Notification Badge -->
+  </a>
+</li>
+
+          <li class="nav-item login-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Modal -->
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content custom-modal">
+      <div class="modal-header">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginNav">Login</a>
+        </li>        
+        <button type="button" class="btn-close btn-close-warning" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" required />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" required />
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-warning">Login</button>
+          </div>
+          <div class="mt-3">
+            Don't have an account? <a href="#" class="signup-link">Sign Up</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End of Login Modal -->
+<!-- End of Navbar -->
+
+
+<!--About us-->
+<section class="about-us-section text-center py-5">
+    <h2 class="about-title mb-4">About Us</h2>
+    <div class="about-card d-flex flex-column flex-md-row align-items-center justify-content-center mx-auto p-4">
+      <img src="img/store.jpg" alt="The Clamshell Restaurant" class="about-img mb-3 mb-md-0 me-md-4" />
+      <div class="about-description text-start">
+        <h3 class="about-card-title mb-3">The Clamshell</h3>
+        <p>
+          Welcome to <strong>The Clamshell</strong>, where luxury meets flavor. We specialize in exquisite seafood
+          cuisine curated with passion and served in a setting that radiates elegance. Our mission is to provide
+          a premium dining experience that leaves a lasting impression. Whether you're here for a romantic dinner,
+          a family gathering, or a business meeting, The Clamshell promises excellence in every bite.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+<!--End of About us-->  
+
+
+
+<!--Our Staff-->
+<section id="our-staff" class="text-center py-5">
+    <h2 class="section-title mb-5">Our Staff</h2>
+    <div id="staffCardsContainer" class="staff-flex-container">
+      
+      <!-- Staff Card 1 -->
+      <div class="staff-card position-relative">
+        <img src="https://placehold.co/300x200" alt="Thariq">
+        <h4 class="mt-3">Mohamed Thariq</h4>
+        <h6>Founder/Executive Chef</h6>
+        <p>With 20+ years of experience, Mohamed Thariq crafts our signature dishes with passion.</p>
+        <i class="fas fa-edit edit-icon" title="Edit"></i>
+        <i class="fas fa-trash-alt delete-icon" title="Delete"></i>
+      </div>
+  
+      <!-- Staff Card 2 -->
+      <div class="staff-card position-relative">
+        <img src="https://placehold.co/300x200" alt="Thanish">
+        <h4 class="mt-3">Mohamed Thanish</h4>
+        <h6>Founder/Director</h6>
+        <p>Ensures a smooth dining experience and oversees our top-tier service standards.</p>
+        <i class="fas fa-edit edit-icon" title="Edit"></i>
+        <i class="fas fa-trash-alt delete-icon" title="Delete"></i>
+      </div>
+  
+      <!-- Staff Card 3 -->
+      <div class="staff-card position-relative">
+        <img src="https://placehold.co/300x200" alt="Liam Brooks">
+        <h4 class="mt-3">Liam Payne</h4>
+        <h6>Sommelier</h6>
+        <p>Expert in fine wines, Liam helps you pair the perfect drink with your meal.</p>
+        <i class="fas fa-edit edit-icon" title="Edit"></i>
+        <i class="fas fa-trash-alt delete-icon" title="Delete"></i>
+      </div>
+  
+    </div>
+  </section>
+  
+  
+      <!-- Add Button for Admin -->
+      <div class="row justify-content-center">
+        <div class="col-md-4 mb-4 d-none" id="addStaffCard">
+          <div class="staff-card add-card text-center">
+            <i class="fas fa-plus-circle"></i>
+            <p class="mt-3">Add another staff member</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- Edit Modal -->
+<div class="modal fade modal-xl" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Staff Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <div class="mb-3">
+              <label for="editName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="editName" required>
+            </div>
+            <div class="mb-3">
+              <label for="editDestination" class="form-label">Destination</label>
+              <input type="text" class="form-control" id="editDestination" required>
+            </div>
+            <div class="mb-3">
+              <label for="editDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editImage" class="form-label">Profile Picture</label>
+              <input type="file" class="form-control" id="editImage" accept="image/*" required>
+              <img id="editImagePreview" src="" alt="Image Preview" class="mt-2" style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+            <button type="submit" class="btn btn-gold">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Staff Modal -->
+  <div class="modal fade modal-xl" id="addStaffModal" tabindex="-1" aria-labelledby="addStaffModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStaffModalLabel">Add New Staff Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addForm">
+            <div class="mb-3">
+              <label for="addName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="addName" required>
+            </div>
+            <div class="mb-3">
+              <label for="addDestination" class="form-label">Destination</label>
+              <input type="text" class="form-control" id="addDestination" required>
+            </div>
+            <div class="mb-3">
+              <label for="addDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="addDescription" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="addImage" class="form-label">Profile Picture</label>
+              <input type="file" class="form-control" id="addImage" accept="image/*" required>
+              <img id="addImagePreview" src="" alt="Image Preview" class="mt-2" style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+            <button type="submit" class="btn btn-gold">Add Staff</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-4 bg-black border border-gold">
+        <h5 class="text-gold">Successfully updated!</h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Are you sure you want to delete this entry?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Successfully Deleted</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          The staff member has been deleted successfully.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!--End of Our Staff-->  
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer Section -->
+<footer class="footer-section">
+    <div class="container">
+      <div class="row">
+        <!-- Left Column: Company Name, Address, Contact Details -->
+        <div class="col-lg-4 col-md-12 footer-left">
+          <h5 class="footer-title">The Clamshell (Pvt) Ltd.</h5>
+          <p><strong>Contact Us</strong></p>
+          <p>No108 Siribopura, Hambantota 82000</p>
+          <p>+9477 409 3985</p>
+          <p>contact@clamshell.com</p>
+        </div>
+        
+        <!-- Middle Column: Logo & Social Media Links -->
+        <div class="col-lg-4 col-md-12 footer-middle text-center">
+          <img src="img/logo_2-removebg-preview.png" alt="Restaurant Logo" class="footer-logo">
+          <div class="social-icons">
+            <a href="#" class="social-icon" id="facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" id="instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" id="tiktok"><i class="fab fa-tiktok"></i></a>
+            <a ref="https://wa.me/94774093985" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        
+        <!-- Right Column: Powered By Matrix Labs -->
+        <div class="col-lg-4 col-md-12 footer-right text-center">
+          <img src="img/ml-logo-gold-removebg-preview.png" alt="Matrix Logo" class="ml-logo">
+          <p>Powered by <strong>Matrix Labs</strong></p>
+          <p style="color: #fff;">+94763979651</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--End of Footer Section-->
+
+
+
+  <!-- Add this in your <head> or just before your custom JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    // Function to hide or show admin UI elements based on login status
+// Function to hide/show admin UI elements and update navbar based on login status
+function toggleAdminUI() {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    const myCartLink = document.getElementById('myCartLink');
+    const contactUsLink = document.getElementById('contactUsLink');
+    const ordersLink = document.getElementById('ordersLink');
+    const ordersBadge = document.getElementById('ordersBadge'); // Badge element
+
+    if (user && user.role === 'admin') {
+        // Admin logged in: Show Orders and hide My Cart and Contact Us
+        ordersLink.classList.remove('d-none');
+        myCartLink.classList.add('d-none');
+        contactUsLink.classList.add('d-none');
+
+        // Show admin-specific elements (edit/delete icons)
+        document.querySelectorAll('.edit-icon, .delete-icon').forEach(el => {
+            el.classList.remove('d-none');
+        });
+        const addCard = document.getElementById('addStaffCard');
+        if (addCard) {
+            addCard.classList.remove('d-none');
+        }
+
+        // Check if there are any orders and show/hide the badge
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        if (orders.length > 0) {
+            ordersBadge.textContent = orders.length; // Set the number of orders
+            ordersBadge.classList.remove('d-none'); // Show badge
+        } else {
+            ordersBadge.classList.add('d-none'); // Hide badge if no orders
+        }
+    } else {
+        // Customer logged in: Show My Cart and Contact Us and hide Orders
+        ordersLink.classList.add('d-none');
+        myCartLink.classList.remove('d-none');
+        contactUsLink.classList.remove('d-none');
+
+        // Hide admin-specific elements
+        document.querySelectorAll('.edit-icon, .delete-icon').forEach(el => {
+            el.classList.add('d-none');
+        });
+        const addCard = document.getElementById('addStaffCard');
+        if (addCard) {
+            addCard.classList.add('d-none');
+        }
+    }
+}
+
+// LOGIN FORM SUBMISSION
+document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    const users = [
+        { email: 'admin@clamshell.com', password: 'admin123', role: 'admin' },
+        { email: 'user@clamshell.com', password: 'user123', role: 'customer' }
+    ];
+
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        // Store user in localStorage
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+
+        // Update navbar
+        updateNavbar(user);
+
+        // Hide modal
+        const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+        loginModal.hide();
+
+        // Role-based UI
+        toggleAdminUI();
+    } else {
+        alert('Invalid email or password!');
+    }
+});
+
+// ON PAGE LOAD
+document.addEventListener('DOMContentLoaded', function () {
+    const savedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (savedUser) {
+        updateNavbar(savedUser);
+        toggleAdminUI();
+    } else {
+        // Ensure correct UI when no user is logged in
+        toggleAdminUI();
+    }
+});
+
+// NAVBAR UPDATE FUNCTION
+function updateNavbar(user) {
+    const nav = document.querySelector('.navbar-nav');
+    const loginItem = document.querySelector('.navbar-nav .login-item');
+
+    // Remove login link if present
+    if (loginItem) loginItem.remove();
+
+    // Create user role-specific dropdown
+    const dropdown = document.createElement('li');
+    dropdown.className = 'nav-item dropdown';
+    dropdown.innerHTML = `
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ${user.role === 'admin' ? 'Admin' : 'User'}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">View Profile</a></li>
+            <li><a class="dropdown-item" href="#" id="logoutBtn">Log out</a></li>
+        </ul>
+    `;
+    nav.appendChild(dropdown);
+
+    const logoutBtn = dropdown.querySelector('#logoutBtn');
+    logoutBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('loggedInUser');
+        location.reload();
+    });
+}
+
+    // Preview the image before submission (for Edit Modal)
+    document.getElementById('editImage').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('editImagePreview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Preview the image before submission (for Add Staff Modal)
+    document.getElementById('addImage').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('addImagePreview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+// Submit Edit Form (with Image Handling)
+// Submit Edit Form (with Image Handling)
+document.getElementById('editForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const staffName = document.getElementById('editName').value.trim();
+    const staffRole = document.getElementById('editDestination').value.trim();
+    const staffDescription = document.getElementById('editDescription').value.trim();
+    const staffImage = document.getElementById('editImage').files[0];
+
+    // Update the staff card with the new values
+    if (staffCardToUpdate) {
+        staffCardToUpdate.querySelector('h4').textContent = staffName;
+        staffCardToUpdate.querySelector('h6').textContent = staffRole;
+        staffCardToUpdate.querySelector('p').textContent = staffDescription;
+
+        // If a new image was selected, update the image as well
+        if (staffImage) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                staffCardToUpdate.querySelector('img').src = event.target.result;
+
+                // Close the modal after image is set
+                const editStaffModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+                editStaffModal.hide();
+
+                // Show success message
+                showEditSuccessMessage();
+            };
+            reader.readAsDataURL(staffImage);
+        } else {
+            // No image change, just close modal and show success
+            const editStaffModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            editStaffModal.hide();
+            showEditSuccessMessage();
+        }
+    }
+});
+
+// Function to show "Edit Successful" popup
+function showEditSuccessMessage() {
+    const successMessage = document.createElement('div');
+    successMessage.classList.add('alert', 'alert-success');
+    successMessage.textContent = 'Staff Member Updated Successfully!';
+    successMessage.style.position = 'fixed';
+    successMessage.style.top = '20px';
+    successMessage.style.left = '50%';
+    successMessage.style.transform = 'translateX(-50%)';
+    successMessage.style.zIndex = '1050';
+    successMessage.style.width = 'auto';
+
+    document.body.appendChild(successMessage);
+
+    // Automatically hide the success message after 3 seconds
+    setTimeout(() => {
+        successMessage.remove();
+    }, 3000);
+}
+
+// Global fix to ensure scroll is re-enabled and backdrop is removed
+document.getElementById('editModal').addEventListener('hidden.bs.modal', function () {
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+});
+
+
+
+
+
+
+    // Delete Staff Member
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.classList.contains('delete-icon')) {
+        const staffCard = e.target.closest('.staff-card');
+        //if (staffCard) {
+         // staffCard.remove();
+         // alert('Staff Member Deleted Successfully!');
+        //}
+      }
+    });
+
+    // Delete Staff Member (with Confirmation Modal)
+// Create confirmation modal
+function createConfirmationModal(staffCard) {
+    const modalHtml = `
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-warning border-warning">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+            <button type="button" class="btn-close btn-close-warning" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this staff member?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-warning" id="confirmDeleteBtn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+    // Remove existing modal if any
+    const existing = document.getElementById('confirmDeleteModal');
+    if (existing) existing.remove();
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    const modalInstance = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    modalInstance.show();
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+        staffCard.remove();
+        modalInstance.hide();
+        showDeleteAlert();
+    });
+}
+
+
+
+//Edit Modal
+
+// Variable to hold the staff card to be updated
+let staffCardToUpdate = null;
+
+
+// Event listener for edit icon click
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.classList.contains('edit-icon')) {
+    const staffCard = e.target.closest('.staff-card');
+    if (staffCard) {
+      // Get current staff member details
+      const staffName = staffCard.querySelector('h4').textContent;
+      const staffRole = staffCard.querySelector('h6').textContent;
+      const staffDescription = staffCard.querySelector('p').textContent;
+      const staffImage = staffCard.querySelector('img').src;
+
+      // Populate modal with current staff data
+      document.getElementById('editName').value = staffName;
+      document.getElementById('editDestination').value = staffRole;
+      document.getElementById('editDescription').value = staffDescription;
+      document.getElementById('editImagePreview').src = staffImage;
+
+      // Store the card to be updated in a variable so it can be accessed when saving
+      staffCardToUpdate = staffCard;
+
+      // Show the modal
+      const editStaffModal = new bootstrap.Modal(document.getElementById('editModal'));
+      editStaffModal.show();
+    }
+  }
+});
+
+// Handle saving the changes in the modal
+document.getElementById('editForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const staffName = document.getElementById('editName').value.trim();
+  const staffRole = document.getElementById('editDestination').value.trim();
+  const staffDescription = document.getElementById('editDescription').value.trim();
+  const staffImage = document.getElementById('editImage').files[0];
+
+  // Update the staff card with the new values
+  if (staffCardToUpdate) {
+    staffCardToUpdate.querySelector('h4').textContent = staffName;
+    staffCardToUpdate.querySelector('h6').textContent = staffRole;
+    staffCardToUpdate.querySelector('p').textContent = staffDescription;
+
+    // If a new image was selected, update the image as well
+    if (staffImage) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        staffCardToUpdate.querySelector('img').src = event.target.result;
+      };
+      reader.readAsDataURL(staffImage);
+    }
+
+    // Listen for file input change and update image preview
+document.getElementById('editImage').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById('editImagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            preview.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+
+    // Close the modal
+    const editStaffModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+    editStaffModal.hide();
+
+    // Optional: You can also send the updated data to a backend via an API request here if needed
+    // Example: 
+    // fetch('/api/update-staff', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ staffName, staffRole, staffDescription, staffImage }),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
+  }
+});
+
+// Handle image preview in the modal when a file is selected
+document.getElementById('editImage').addEventListener('change', function(e) {
+  const preview = document.getElementById('editImagePreview');
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  
+  reader.onload = function(event) {
+    preview.src = event.target.result;
+  };
+  
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+});
+//End of Edit Modal
+
+
+
+// Event listener for delete icon click
+// Event listener for delete icon click
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.classList.contains('delete-icon')) {
+    const staffCard = e.target.closest('.staff-card');
+    if (staffCard) {
+      // Show custom confirmation modal only if no modal is currently open
+      if (!document.querySelector('#confirmationModal')) {
+        showConfirmationModal(staffCard);
+      }
+    }
+  }
+});
+
+// Function to show custom confirmation modal
+function showConfirmationModal(staffCard) {
+  // Create modal HTML structure
+  const modalHTML = `
+    <div class="modal fade" tabindex="-1" role="dialog" id="confirmationModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Deletion</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this staff member?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Create modal element and append to body
+  const modalElement = document.createElement('div');
+  modalElement.innerHTML = modalHTML;
+  document.body.appendChild(modalElement);
+
+  // Initialize the modal using Bootstrap's Modal API
+  const modalInstance = new bootstrap.Modal(modalElement.querySelector('.modal'));
+
+  // Open the modal
+  modalInstance.show();
+
+  // Add event listener to the "Delete" button inside the modal
+  modalElement.querySelector('#confirmDelete').addEventListener('click', function() {
+    // Remove the staff card when 'Delete' is confirmed
+    staffCard.remove();
+    // Close the modal
+    modalInstance.hide();
+  });
+
+  // Close modal if 'Cancel' button is clicked
+  modalElement.querySelector('.btn-secondary').addEventListener('click', function() {
+    modalInstance.hide();  // Close modal without deleting
+  });
+
+  // Clean up the modal after it's hidden
+  modalElement.addEventListener('hidden.bs.modal', function() {
+    modalElement.remove();  // Remove the modal from DOM after hiding
+  });
+}
+
+
+
+
+
+// Show the Add Staff Card and trigger modal
+document.getElementById('addStaffCard').addEventListener('click', function() {
+    // Show the modal when the "Add another staff member" card is clicked
+    const addStaffModal = new bootstrap.Modal(document.getElementById('addStaffModal'));
+    addStaffModal.show();
+});
+
+// Handle form submission for adding new staff member
+// Submit Add Staff Form (with Image Handling)
+document.getElementById('addForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Collect new staff data
+  const newName = document.getElementById('addName').value;
+  const newDestination = document.getElementById('addDestination').value;
+  const newDescription = document.getElementById('addDescription').value;
+  const newImage = document.getElementById('addImage').files[0];
+
+  // Handle image
+  const imageURL = URL.createObjectURL(newImage);
+
+  // Create new staff card
+  const newStaffCard = document.createElement('div');
+  newStaffCard.classList.add('staff-card', 'position-relative');
+  newStaffCard.innerHTML = `
+    <img src="${imageURL}" alt="${newName}">
+    <h4 class="mt-3">${newName}</h4>
+    <h6>${newDestination}</h6>
+    <p>${newDescription}</p>
+    <i class="fas fa-edit edit-icon" title="Edit"></i>
+    <i class="fas fa-trash-alt delete-icon" title="Delete"></i>
+  `;
+
+  // Append to correct container
+  document.getElementById('staffCardsContainer').appendChild(newStaffCard);
+
+  // Hide modal
+  const addStaffModal = bootstrap.Modal.getInstance(document.getElementById('addStaffModal'));
+  addStaffModal.hide();
+
+  // Optional: show custom success message
+  showSuccessMessage('Staff Member Added Successfully!');
+});
+
+// Optional: Show success message
+function showSuccessMessage(message) {
+  const successMessage = document.createElement('div');
+  successMessage.classList.add('alert', 'alert-success');
+  successMessage.textContent = message;
+  successMessage.style.position = 'fixed';
+  successMessage.style.top = '20px';
+  successMessage.style.right = '20px';
+  successMessage.style.zIndex = '9999';
+  document.body.appendChild(successMessage);
+  setTimeout(() => successMessage.remove(), 4000);
+}
+
+
+
+// Handle editing of staff card (using event delegation)
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('edit-icon')) {
+        const staffCard = e.target.closest('.staff-card');
+        if (staffCard) {
+            // Get the current details from the staff card
+            const name = staffCard.querySelector('h4').innerText;
+            const destination = staffCard.querySelector('h6').innerText;
+            const description = staffCard.querySelector('p').innerText;
+
+            // Populate the modal with the current details
+            document.getElementById('editName').value = name;
+            document.getElementById('editDestination').value = destination;
+            document.getElementById('editDescription').value = description;
+
+            // Open the edit modal
+            const editStaffModal = new bootstrap.Modal(document.getElementById('editModal'));
+            editStaffModal.show();
+
+            // Handle form submission for editing staff member
+            document.getElementById('editForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const updatedName = document.getElementById('editName').value.trim();
+                const updatedDestination = document.getElementById('editDestination').value.trim();
+                const updatedDescription = document.getElementById('editDescription').value.trim();
+
+                if (updatedName && updatedDestination && updatedDescription) {
+                    // Update staff card with new values
+                    staffCard.querySelector('h4').innerText = updatedName;
+                    staffCard.querySelector('h6').innerText = updatedDestination;
+                    staffCard.querySelector('p').innerText = updatedDescription;
+
+                    // Close the edit modal
+                    const editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+                    editModal.hide();
+                } else {
+                    alert('Please fill out all fields.');
+                }
+            });
+        }
+    }
+});
+
+
+
+
+
+
+
+    // Change navbar color on scroll (ensure this works on all pages)
+window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.custom-navbar');
+
+    // If the user has scrolled more than 50px, add the 'scrolled-navbar' class
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled-navbar');
+    } else {
+        navbar.classList.remove('scrolled-navbar');
+    }
+});
+
+// Check if we're on the About Us page to ensure the navbar starts transparent
+document.addEventListener('DOMContentLoaded', function () {
+    const body = document.body;
+    const navbar = document.querySelector('.custom-navbar');
+    
+    if (body.classList.contains('about-us-page')) {
+        navbar.classList.remove('scrolled-navbar');  // Ensure no background color is applied initially
+    }
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    const ordersLink = document.getElementById('ordersLink');
+    const orderBadge = document.getElementById('orderBadge');
+
+    if (user && user.role === 'admin') {
+        // Show the Orders link
+        if (ordersLink) ordersLink.classList.remove('d-none');
+
+        // Fetch orders and update badge
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        if (orderBadge) {
+            if (orders.length > 0) {
+                orderBadge.textContent = orders.length;
+                orderBadge.style.display = 'inline-block';
+            } else {
+                orderBadge.style.display = 'none';
+            }
+        }
+    } else {
+        if (ordersLink) ordersLink.classList.add('d-none');
+    }
+});
+
+</script>
+
+
+
+
+
+
+
+
+<!-- Include AOS (Animate on Scroll) -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- jQuery (optional, if you need) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</body>
+</html>

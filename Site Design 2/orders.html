@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/logo 2.jpg" type="image/png">
+  <title>Orders | Clamshell</title>
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+  
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  </head>
+
+
+
+<body>
+
+     <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+    <div class="container position-relative">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo_2-removebg-preview.png" alt="Logo" class="logo-img me-2">
+        <span class="logo-text">The Clamshell</span>
+      </a>
+  
+      <!-- Hamburger Icon -->
+      <button class="navbar-toggler text-warning border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Dropdown Menu -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
+<!-- My Cart and Contact Us will be dynamically hidden based on user role -->
+<li class="nav-item d-none" id="myCartLink">
+  <a class="nav-link" href="#">My Cart</a>
+</li>
+
+<li class="nav-item d-none" id="contactUsLink">
+  <a class="nav-link" href="#">Contact Us</a>
+</li>
+
+<!-- Orders Page Link (Hidden by default, shown on admin login) -->
+<li class="nav-item d-none" id="ordersLink">
+  <a class="nav-link" href="/orders">
+      Orders
+      <span class="badge bg-danger" id="orderBadge" style="display: none;">0</span> <!-- Notification Badge -->
+  </a>
+</li>
+
+          <li class="nav-item login-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+  
+
+  <div class="container py-5">
+    <h2 class="mb-4">New Orders</h2>
+    <div id="newOrdersContainer">
+      <p class="text-muted" id="noNewOrders">No New Orders Received</p>
+      <!-- New Order tiles injected here -->
+       <!-- Orders container -->
+       <div id="pendingOrders" class="orders-container"></div>
+
+
+
+
+
+  </div>
+    </div>
+
+    <div class="container py-5">
+    <hr class="my-5" style="border-color: #f5d34c;">
+
+    <h2 class="mb-3">All Completed Orders</h2>
+    <div class="d-flex date-filter mb-3">
+        <label for="startDate">From:</label>
+        <input type="date" id="startDate" class="form-control form-control-sm">
+        <label for="endDate">To:</label>
+        <input type="date" id="endDate" class="form-control form-control-sm">
+        <button class="btn btn-sm btn-warning" onclick="filterCompletedOrders()">Filter</button>
+        <button class="btn btn-sm btn-secondary ms-2" onclick="removeFilter()">Remove Filter</button>
+      </div>
+      
+      <div id="completedOrders" class="d-flex flex-column align-items-center gap-3 mt-5"></div>
+
+      <!-- Completed Order tiles injected here -->
+    
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-warning">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="confirmationMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-warning" id="confirmBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Cancel Confirmation Modal -->
+<div class="modal fade" id="cancelConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-white bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title">Cancel Order</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to cancel this order?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" id="confirmCancelBtn">Yes, Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="flashMessage" class="alert d-none text-center fw-bold" style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1050;"></div>
+
+
+  <!-- View Order Modal -->
+<div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content" style="background-color: #111; color: #f5d34c;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="viewOrderModalLabel">Order Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="viewOrderContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- Delete Order Confirmation Modal -->
+<div class="modal fade" id="deleteOrderConfirmModal" tabindex="-1" aria-labelledby="deleteOrderConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #111; color: #f5d34c;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="deleteOrderConfirmModalLabel">Confirm Deletion</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>To delete this order, please enter your admin credentials.</p>
+          <div class="mb-3">
+            <label for="adminEmail" class="form-label">Admin Email</label>
+            <input type="email" class="form-control" id="adminEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="adminPassword" class="form-label">Admin Password</label>
+            <input type="password" class="form-control" id="adminPassword" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteOrderBtn">Confirm Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+    // Change navbar color on scroll
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.custom-navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled-navbar');
+      } else {
+        navbar.classList.remove('scrolled-navbar');
+      }
+    });
+  
+    // Global variables
+    let cancelTargetOrderId = null;
+    let cancelModal = null;
+  
+    // Cancel Order Function (global)
+    window.cancelOrder = function (orderId) {
+      cancelTargetOrderId = orderId;
+      if (cancelModal) cancelModal.show();
+    };
+  
+    // Add Order to UI (global)
+    window.addOrderToUI = function (orderData, isCompleted = false) {
+      const container = document.getElementById(isCompleted ? 'completedOrders' : 'pendingOrders');
+      if (!container) return console.error('Container not found');
+  
+      const orderTile = document.createElement('div');
+      orderTile.className = 'order-card shadow-lg';
+      orderTile.innerHTML = `
+        <div class="order-header">Order #${orderData.orderId}</div>
+        <div class="order-items">
+          ${orderData.foods.map(item => `
+            <div class="order-item">
+              <span>${item.sku}</span>
+              <span>${item.name}</span>
+              <span>LKR${item.price}</span>
+              <span>${item.quantity}</span>
+              <span>LKR${item.price * item.quantity}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="order-customer">
+          <p><strong>Name:</strong> ${orderData.customer.name}</p>
+          <p><strong>Address:</strong> ${orderData.customer.address}</p>
+          <p><strong>Contact:</strong> ${orderData.customer.phone}</p>
+          <p><strong>Email:</strong> ${orderData.customer.email}</p>
+          <p><strong>Timestamp:</strong> ${orderData.timestamp}</p>
+        </div>
+        <div class="order-actions">
+          ${
+            isCompleted
+              ? `<button class="btn btn-danger" onclick="deleteOrder('${orderData.orderId}')">Delete Order</button>`
+              : `
+                <button class="btn btn-success me-2" onclick="completeOrder('${orderData.orderId}')">Order is Completed</button>
+                <button class="btn btn-outline-danger" onclick="cancelOrder('${orderData.orderId}')">Order is Cancelled</button>
+              `
+          }
+        </div>
+      `;
+  
+      container.prepend(orderTile);
+    };
+  
+    // Simulate Order (global)
+    window.simulateOrder = function () {
+      const mockOrder = {
+        orderId: 'ORD' + Date.now(),
+        foods: [
+          { sku: 'F001', name: 'Lobster Bisque', price: 499, quantity: 2 },
+          { sku: 'F002', name: 'Crab Cakes', price: 299, quantity: 1 }
+        ],
+        customer: {
+          name: 'John Doe',
+          address: '123 Beachside Ave',
+          phone: '9876543210',
+          email: 'john@example.com'
+        },
+        timestamp: new Date().toLocaleString()
+      };
+  
+      let orders = JSON.parse(localStorage.getItem('orders')) || [];
+      orders.unshift(mockOrder);
+      localStorage.setItem('orders', JSON.stringify(orders));
+  
+      if (typeof addOrderToUI === 'function') {
+        addOrderToUI(mockOrder);
+      }
+    };
+  
+    // Flash message (global)
+    function showFlashMessage(message, type = 'success') {
+      const flash = document.getElementById('flashMessage');
+      flash.textContent = message;
+      flash.classList.remove('d-none');
+  
+      if (type === 'danger') {
+        flash.style.backgroundColor = '#8b0000';
+        flash.style.color = '#fff';
+      } else {
+        flash.style.backgroundColor = '#000';
+        flash.style.color = '#f5d34c';
+      }
+  
+      setTimeout(() => {
+        flash.classList.add('d-none');
+      }, 5000);
+    }
+  
+    // DOM Ready Logic
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  
+      if (savedUser) {
+        updateNavbar(savedUser);
+      } else {
+        if (window.location.pathname !== "/orders") {
+          showLoginButton();
+        } else {
+          window.location.href = 'index.html';
+          localStorage.setItem('flashMessage', 'You need to be logged in as Admin to view this page.');
+        }
+      }
+  
+      // Setup cancel modal
+      cancelModal = new bootstrap.Modal(document.getElementById('cancelConfirmModal'));
+  
+      document.getElementById('confirmCancelBtn')?.addEventListener('click', function () {
+        if (!cancelTargetOrderId) return;
+  
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        orders = orders.filter(order => order.orderId !== cancelTargetOrderId);
+        localStorage.setItem('orders', JSON.stringify(orders));
+  
+        showFlashMessage("Order cancelled successfully.", "danger");
+        cancelTargetOrderId = null;
+        cancelModal.hide();
+        location.reload();
+      });
+  
+      // Login form
+      document.getElementById('loginForm')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+  
+        const users = [
+          { email: 'admin@clamshell.com', password: 'admin123', role: 'admin' },
+          { email: 'user@clamshell.com', password: 'user123', role: 'customer' }
+        ];
+  
+        const user = users.find(u => u.email === email && u.password === password);
+  
+        if (user) {
+          localStorage.setItem('loggedInUser', JSON.stringify(user));
+          updateNavbar(user);
+  
+          const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+          loginModal.hide();
+        } else {
+          alert('Invalid email or password!');
+        }
+      });
+    });
+  
+    // Show login button if needed
+    function showLoginButton() {
+      const loginItem = document.querySelector('.navbar-nav .login-item');
+      if (loginItem) loginItem.classList.remove('d-none');
+    }
+  
+    // Update navbar based on user
+    function updateNavbar(user) {
+      const nav = document.querySelector('.navbar-nav');
+      const loginItem = document.querySelector('.navbar-nav .login-item');
+      const myCartLink = document.getElementById('myCartLink');
+      const contactUsLink = document.getElementById('contactUsLink');
+      const ordersLink = document.getElementById('ordersLink');
+      const orderBadge = document.getElementById('orderBadge');
+  
+      if (loginItem) loginItem.remove();
+  
+      myCartLink?.classList.add('d-none');
+      contactUsLink?.classList.add('d-none');
+      ordersLink?.classList.add('d-none');
+  
+      if (user.role === 'admin') {
+        ordersLink?.classList.remove('d-none');
+        orderBadge?.classList.remove('d-none');
+        orderBadge.textContent = 3;
+      }
+  
+      if (user.role === 'customer') {
+        myCartLink?.classList.remove('d-none');
+        contactUsLink?.classList.remove('d-none');
+      }
+  
+      const dropdown = document.createElement('li');
+      dropdown.className = 'nav-item dropdown';
+      dropdown.innerHTML = `
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ${user.role === 'admin' ? 'Admin' : 'User'}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">View Profile</a></li>
+            <li><a class="dropdown-item" href="#" id="logoutBtn">Log out</a></li>
+        </ul>
+      `;
+      nav.appendChild(dropdown);
+  
+      dropdown.querySelector('#logoutBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('loggedInUser');
+        localStorage.setItem('flashMessage', 'You have been logged out.');
+        window.location.href = 'index.html';
+      });
+    }
+
+
+    // ✅ Move order from pending to completed
+window.completeOrder = function (orderId) {
+  let orders = JSON.parse(localStorage.getItem('orders')) || [];
+  const targetIndex = orders.findIndex(order => order.orderId === orderId);
+  if (targetIndex === -1) return;
+
+  const completedOrders = JSON.parse(localStorage.getItem('completedOrders')) || [];
+  completedOrders.unshift(orders[targetIndex]);
+  localStorage.setItem('completedOrders', JSON.stringify(completedOrders));
+
+  orders.splice(targetIndex, 1);
+  localStorage.setItem('orders', JSON.stringify(orders));
+
+  showFlashMessage("Order marked as completed.");
+  location.reload(); // reload to refresh UI
+};
+
+// ✅ Show completed orders on page load
+document.addEventListener('DOMContentLoaded', function () {
+  const completedOrders = JSON.parse(localStorage.getItem('completedOrders')) || [];
+  completedOrders.forEach(order => addCompletedOrderToUI(order));
+});
+
+// ✅ Add completed order card to UI
+function addCompletedOrderToUI(order) {
+  const container = document.getElementById('completedOrders');
+  if (!container) return;
+
+  const totalPrice = order.foods.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  const card = document.createElement('div');
+  card.className = 'd-flex justify-content-between align-items-center border rounded p-3 shadow';
+  card.style.backgroundColor = '#222';
+  card.style.color = '#f5d34c';
+  card.style.width = '80%';
+  card.innerHTML = `
+    <div>
+      <p><strong>Order #:</strong> ${order.orderId}</p>
+      <p><strong>Name:</strong> ${order.customer.name}</p>
+      <p><strong>Total:</strong> LKR${totalPrice}</p>
+      <p><strong>Date:</strong> ${order.timestamp}</p>
+    </div>
+    <div class="d-flex flex-column gap-2">
+      <button class="btn btn-outline-light" onclick="viewOrder('${order.orderId}')">View Order</button>
+      <button class="btn btn-danger" onclick="deleteOrder('${order.orderId}', true)">Delete Order</button>
+    </div>
+  `;
+  container.appendChild(card);
+}
+
+// ✅ View Order modal
+window.viewOrder = function (orderId) {
+  const completedOrders = JSON.parse(localStorage.getItem('completedOrders')) || [];
+  const order = completedOrders.find(o => o.orderId === orderId);
+  if (!order) return;
+
+  const totalPrice = order.foods.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  const content = `
+    <h5 class="mb-3">Customer Info</h5>
+    <p><strong>Name:</strong> ${order.customer.name}</p>
+    <p><strong>Address:</strong> ${order.customer.address}</p>
+    <p><strong>Phone:</strong> ${order.customer.phone}</p>
+    <p><strong>Email:</strong> ${order.customer.email}</p>
+    <p><strong>Date:</strong> ${order.timestamp}</p>
+
+    <h5 class="mt-4 mb-3">Ordered Items</h5>
+    <div class="border p-2">
+      ${order.foods.map(item => `
+        <div class="d-flex justify-content-between">
+          <span><strong>${item.name}</strong> (SKU: ${item.sku})</span>
+          <span>Qty: ${item.quantity}</span>
+          <span>each: LKR${item.price} </span>
+          <span>Total: LKR${item.price * item.quantity}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <h5 class="mt-4">Total Price: LKR${totalPrice}</h5>
+  `;
+
+  document.getElementById('viewOrderContent').innerHTML = content;
+  const modal = new bootstrap.Modal(document.getElementById('viewOrderModal'));
+  modal.show();
+};
+
+// ✅ Delete completed order
+// ✅ Variable to store the target order ID for deletion
+let targetOrderIdForDeletion = null;
+
+// ✅ Open confirmation modal when "Delete Order" button is clicked
+window.deleteOrder = function (orderId, isCompleted = false) {
+  targetOrderIdForDeletion = orderId;
+  const deleteModal = new bootstrap.Modal(document.getElementById('deleteOrderConfirmModal'));
+  deleteModal.show();
+};
+
+// ✅ Handle the confirmation of deletion
+document.getElementById('confirmDeleteOrderBtn').addEventListener('click', function () {
+  const adminEmail = document.getElementById('adminEmail').value.trim();
+  const adminPassword = document.getElementById('adminPassword').value.trim();
+
+  const savedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+  if (!savedUser || savedUser.role !== 'admin' || adminEmail !== savedUser.email || adminPassword !== savedUser.password) {
+    alert('Incorrect admin credentials. Order deletion failed.');
+    return;
+  }
+
+  // If credentials match, proceed with deletion
+  let orders = JSON.parse(localStorage.getItem('completedOrders')) || [];
+  orders = orders.filter(order => order.orderId !== targetOrderIdForDeletion);
+  localStorage.setItem('completedOrders', JSON.stringify(orders));
+
+  showFlashMessage("Order deleted successfully.", "danger");
+  targetOrderIdForDeletion = null; // Reset target after deletion
+
+  // Close the modal
+  const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteOrderConfirmModal'));
+  deleteModal.hide();
+
+  location.reload(); // reload to refresh UI
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+  // Filter for only pending orders (you can use your own condition to identify pending orders)
+  const pendingOrdersList = orders.filter(order => order.status !== 'completed' && order.status !== 'cancelled');
+
+  const newOrdersContainer = document.getElementById('newOrdersContainer');
+  const noOrdersMessage = document.getElementById('noNewOrders');
+  const pendingOrdersContainer = document.getElementById('pendingOrders');
+
+  // Check if there are any pending orders
+  if (pendingOrdersList.length === 0) {
+    pendingOrdersContainer.style.display = 'none'; // Hide the Pending Orders section if empty
+    noOrdersMessage.style.display = 'block'; // Show "No New Orders" message
+  } else {
+    noOrdersMessage.style.display = 'none'; // Hide the message
+    pendingOrdersContainer.style.display = 'block'; // Show the container
+
+    // Populate the UI with pending orders
+    pendingOrdersList.forEach(order => {
+      addOrderToUI(order);
+    });
+  }
+});
+
+
+
+
+
+
+//simulateOrder(); // Call this function to simulate an order for testing purposes
+// Simulate Order - globally accessible
+window.simulateOrder = function () {
+  const mockOrder = {
+    orderId: 'ORD' + Date.now(),
+    foods: [
+      { sku: 'F001', name: 'Lobster Bisque', price: 499, quantity: 2 },
+      { sku: 'F002', name: 'Crab Cakes', price: 299, quantity: 1 }
+    ],
+    customer: {
+      name: 'Imadh Careem',
+      address: 'No S-47, Tzu-Chi',
+      phone: '077-1234567',
+      email: 'imadh@matrixlabs.lk'
+    },
+    timestamp: new Date().toLocaleString()
+  };
+
+  let orders = JSON.parse(localStorage.getItem('orders')) || [];
+  orders.unshift(mockOrder);
+  localStorage.setItem('orders', JSON.stringify(orders));
+
+  // Immediately add to UI
+  if (typeof addOrderToUI === 'function') {
+    addOrderToUI(mockOrder);
+  }
+
+  // Update UI visibility
+  document.getElementById('noNewOrders').style.display = 'none';
+  document.getElementById('pendingOrders').style.display = 'block';
+};
+
+
+
+// Filter Completed Orders by Date
+let allCompletedOrders = JSON.parse(localStorage.getItem('completedOrders')) || [];
+
+function renderCompletedOrders(orders) {
+  const container = document.getElementById('completedOrders');
+  container.innerHTML = '';
+
+  if (orders.length === 0) {
+    container.innerHTML = `<p class="text-muted">No completed orders found.</p>`;
+    return;
+  }
+
+  orders.forEach(order => addCompletedOrderToUI(order));
+}
+
+window.filterCompletedOrders = function () {
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+
+  const filtered = allCompletedOrders.filter(order => {
+    const orderDate = new Date(order.timestamp).setHours(0, 0, 0, 0);
+    const from = startDate ? new Date(startDate).setHours(0, 0, 0, 0) : null;
+    const to = endDate ? new Date(endDate).setHours(23, 59, 59, 999) : null;
+
+    return (!from || orderDate >= from) && (!to || orderDate <= to);
+  });
+
+  renderCompletedOrders(filtered);
+};
+
+window.removeFilter = function () {
+  renderCompletedOrders(allCompletedOrders);
+};
+
+// Your simulateOrder, filterCompletedOrders, removeFilter, renderCompletedOrders etc.
+
+document.addEventListener('DOMContentLoaded', () => {
+  allCompletedOrders = JSON.parse(localStorage.getItem('completedOrders')) || [];
+  renderCompletedOrders(allCompletedOrders);
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    const ordersLink = document.getElementById('ordersLink');
+    const orderBadge = document.getElementById('orderBadge');
+
+    if (user && user.role === 'admin') {
+        // Show the Orders link
+        if (ordersLink) ordersLink.classList.remove('d-none');
+
+        // Fetch orders and update badge
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        if (orderBadge) {
+            if (orders.length > 0) {
+                orderBadge.textContent = orders.length;
+                orderBadge.style.display = 'inline-block';
+            } else {
+                orderBadge.style.display = 'none';
+            }
+        }
+    } else {
+        if (ordersLink) ordersLink.classList.add('d-none');
+    }
+});
+
+
+
+
+(function () {
+    const originalSimulateOrder = window.simulateOrder;
+
+    if (typeof originalSimulateOrder === 'function') {
+        window.simulateOrder = function (...args) {
+            const result = originalSimulateOrder.apply(this, args);
+            // Call badge updater right after simulateOrder runs
+            if (typeof window.updateOrderBadge === 'function') {
+                window.updateOrderBadge();
+            }
+            return result;
+        };
+    }
+})();
+
+
+
+  </script>
+  
+
+ 
+<!-- Include AOS (Animate on Scroll) -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- jQuery (optional, if you need) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</body>
+</html>
